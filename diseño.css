@@ -1,0 +1,36 @@
+
+* {
+    margin: 0px;
+    padding: 0px;
+    background-color: black;
+}
+
+
+
+.reloj {
+    text-align: center;
+    font-size: 22px;
+    box-sizing: border-box;
+
+}
+
+.hora {
+    font-size: 22px;
+    color: rgb(76, 76, 73);
+    
+}
+
+
+
+#palabraTexto {
+    font-family: 'Noto Serif Hebrew', serif;
+    font-size: 40px;
+    text-shadow: 0 0 2px white, 0 0 5px white, 0 0 15px rgb(74, 217, 222), 0 0 2px white;
+    color: blanchedalmond;
+    
+}
+
+#significadoTexto {
+    color: rgb(121, 121, 119);
+    margin-top: 5px;
+}
