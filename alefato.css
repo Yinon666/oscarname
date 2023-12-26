@@ -84,16 +84,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200&display=swap');
 
-
-:root {
-    --color-terminal: pink;
-    --bode-redondo: 4px;
-}
-
-input, button {
-    border: none;
-    outline: none;
-}
 main {
     font-family: 'Source Code Pro', monospace;
     background-color: rgb(9, 7, 7);
