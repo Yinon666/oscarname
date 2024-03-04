@@ -4,13 +4,16 @@
     background-color: black;
 }
 
-
-
 .reloj {
     text-align: center;
     font-size: 22px;
     box-sizing: border-box;
-}
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    
 
 .hora {
     font-size: 22px;
