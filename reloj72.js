@@ -2,7 +2,6 @@ const horaElement = document.getElementById("hora");
 const palabraTextoElement = document.getElementById("palabraTexto");
 const significadoTextoElement = document.getElementById("significadoTexto");
 
-
 const palabrasHebreas = [
     { palabra: "יאוהדהונוהי", significado: "arrepentimiento" },
     { palabra: "יאיהדלוניהי", significado: "Proteccion de Muerte" },
@@ -76,10 +75,7 @@ const palabrasHebreas = [
     { palabra: "יאיהדבונמהי", significado: "Exito en Negocios" },
     { palabra: "יאההדיוניהי", significado: "Don de la Profecia" },
     { palabra: "יאמהדוונםהי", significado: "Elimina Defectos Fisicos" },
-
-    // Agrega las 72 palabras y sus significados aquí
 ];
-
 
 function obtenerHora() {
     const ahora = new Date();
@@ -98,8 +94,20 @@ function calcularIndicePalabra(hora) {
     const numPalabras = palabrasHebreas.length;
     // Definimos el tiempo para cambiar de palabra (20 minutos)
     const segundosPorPalabra = 20 * 60;
-    // Calculamos el índice de la palabra actual
-    const indicePalabra = Math.floor((segundosTotales % segundosPorCiclo) / segundosPorPalabra) % numPalabras;
+
+    // Calculamos el tiempo dentro del ciclo actual
+    const tiempoEnCiclo = segundosTotales % segundosPorCiclo;
+
+    // Ajustamos el tiempo para que el ciclo se reinicie solo a las 5:46 am
+    const tiempoAjustado = tiempoEnCiclo - (5 * 60 * 60 + 46 * 60);
+
+    // Calculamos el índice de la palabra actual dentro del ciclo ajustado
+    let indicePalabra = Math.floor(tiempoAjustado / segundosPorPalabra);
+
+    // Si el índice de palabra calculado es mayor o igual al número de palabras, volvemos al índice 0
+    if (indicePalabra >= numPalabras) {
+        indicePalabra = 0;
+    }
 
     return indicePalabra;
 }
@@ -120,5 +128,7 @@ function actualizarReloj() {
 }
 
 setInterval(actualizarReloj, 1000);
+
+actualizarReloj();
 
 actualizarReloj();
