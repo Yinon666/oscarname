@@ -89,41 +89,34 @@ function obtenerHora() {
 function calcularIndicePalabra(hora) {
     const hora24 = hora.getHours();
     const minutos = hora.getMinutes();
-    const minutosTotales = hora24 * 60 + minutos;
+    const segundos = hora.getSeconds();
+    const segundosTotales = segundos + minutos * 60 + hora24 * 3600;
 
-    if (hora24 >= 6 && hora24 <= 23) {
-        // De 6:00 AM a 11:40 PM, mostrar palabras 0 a 53
-        const minutosDesdeSeisAM = ((hora24 - 6) * 60) + minutos;
-        return Math.floor(minutosDesdeSeisAM / 20);
-    } else if (hora24 >= 0 && hora24 < 6) {
-        // De 12:00 AM a 5:40 AM, mostrar palabras 54 a 71
-        const minutosDesdeMedianoche = minutos + (hora24 * 60);
-        return Math.floor(minutosDesdeMedianoche / 20) + 54;
-    } else {
-        // En otros momentos, no mostrar palabras
-        return -1;
-    }
+    // Definimos el tiempo total para un ciclo completo (24 horas)
+    const segundosPorCiclo = 24 * 60 * 60;
+    // Definimos el número total de palabras
+    const numPalabras = palabrasHebreas.length;
+    // Definimos el tiempo para cambiar de palabra (20 minutos)
+    const segundosPorPalabra = 20 * 60;
+    // Calculamos el índice de la palabra actual
+    const indicePalabra = Math.floor((segundosTotales % segundosPorCiclo) / segundosPorPalabra) % numPalabras;
+
+    return indicePalabra;
 }
 
 function actualizarReloj() {
     const horaActual = obtenerHora();
     const hora24 = horaActual.getHours();
-
     const minutos = horaActual.getMinutes();
-    const horaFormateada = `${hora24 < 10 ? '0' : ''}${hora24}:${minutos < 10 ? '0' : ''}${minutos}`;
+    const segundos = horaActual.getSeconds();
+    const horaFormateada = `${hora24 < 10 ? '0' : ''}${hora24}:${minutos < 10 ? '0' : ''}${minutos}:${segundos < 10 ? '0' : ''}${segundos}`;
 
     horaElement.textContent = horaFormateada;
 
     const indicePalabra = calcularIndicePalabra(horaActual);
-    
-    if (indicePalabra !== -1) {
-        const palabra = palabrasHebreas[indicePalabra];
-        palabraTextoElement.textContent = palabra.palabra;
-        significadoTextoElement.textContent = palabra.significado;
-    } else {
-        palabraTextoElement.textContent = "";
-        significadoTextoElement.textContent = "";
-    }
+    const palabra = palabrasHebreas[indicePalabra];
+    palabraTextoElement.textContent = palabra.palabra;
+    significadoTextoElement.textContent = palabra.significado;
 }
 
 setInterval(actualizarReloj, 1000);
